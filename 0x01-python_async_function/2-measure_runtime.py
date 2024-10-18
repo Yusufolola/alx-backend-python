@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
-""" 3. Tasks
-"""
+""" Measure the runtime of wait_n """
 
-import asyncio
+import time
+from asyncio import run
 
-wait_random = __import__('0-basic_async_syntax').wait_random
+wait_n = __import__('1-concurrent_coroutines').wait_n
 
 
-def task_wait_random(max_delay: int) -> asyncio.Task:
-    """ Take the integer on max delay and return the task
-    """
-    return asyncio.create_task(wait_random(max_delay))
+def measure_time(n: int, max_delay: int) -> float:
+    """ Measure the runtime of wait_n """
+
+    start = time.time()
+    run(wait_n(n, max_delay))
+    end = time.time()
+    return (end - start) / n
